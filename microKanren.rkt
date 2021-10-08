@@ -1,13 +1,29 @@
 ;; Jason Hemann and Dan Friedman
 ;; microKanren, final implementation from paper
+#lang racket
+
+(provide var var? == call/fresh conj disj walk )
 
 (define (var c) (vector c))
 (define (var? x) (vector? x))
 (define (var=? x1 x2) (= (vector-ref x1 0) (vector-ref x2 0)))
 
+(define (assp proc alist)
+  (let loop ((alist alist))
+    (if (null? alist)
+        #f
+        (let ((p (car alist)))
+          (if (proc (car p))
+              p
+              (loop (cdr alist)))))))
+
 (define (walk u s)
-  (let ((pr (and (var? u) (assp (lambda (v) (var=? u v)) s))))
-    (if pr (walk (cdr pr) s) u)))
+  (let ((pr (and
+             (var? u)
+             (assp (lambda (v) (var=? u v)) s))))
+    (if pr
+        (walk (cdr pr) s)
+        u)))
 
 (define (ext-s x v s) `((,x . ,v) . ,s))
 

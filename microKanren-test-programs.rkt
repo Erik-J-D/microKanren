@@ -1,3 +1,8 @@
+#lang racket
+
+(require "microKanren.rkt")
+
+(provide a-and-b fives ground-appendo ground-appendo2 call-appendo call-appendo2 many-non-ans)
 
 (define-syntax test-check
   (syntax-rules ()
@@ -7,15 +12,15 @@
        (let* ((expected expected-result)
               (produced tested-expression))
          (or (equal? expected produced)
-             (errorf 'test-check
-               "Failed: ~a~%Expected: ~a~%Computed: ~a~%"
-               'tested-expression expected produced)))))))
+             (error 'test-check
+                    "Failed: ~a~%Expected: ~a~%Computed: ~a~%"
+                    'tested-expression expected produced)))))))
 
 (define a-and-b
-  (conj 
+  (conj
    (call/fresh (lambda (a) (== a 7)))
-   (call/fresh 
-    (lambda (b) 
+   (call/fresh
+    (lambda (b)
       (disj
        (== b 5)
        (== b 6))))))
@@ -23,7 +28,7 @@
 (define fives
   (lambda (x)
     (disj
-     (== x 5)      
+     (== x 5)
      (lambda (a/c)
        (lambda ()
          ((fives x) a/c))))))
