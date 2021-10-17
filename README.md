@@ -1,4 +1,4 @@
-# �Kanren - Racket Edition
+# µKanren - Racket Edition
 
 This is a fork of the original microKanren code provided by Jason Hemann and Daniel P. Friedman, modified to run in a modern (v8.2) version of Racket since I couldn't figure out which interpreter they used and the few I tried failed to run all the tests successfully.
 
@@ -7,6 +7,7 @@ This is a fork of the original microKanren code provided by Jason Hemann and Dan
 - Rename everything to .rkt
 - add `provide` and `require` expressions to sort out imports for Racket
 - add an `assp` definition since the built in one in the lists library didn't quite work
+- `errorf` → `error`
 
 The tests all pass in Racket v8.2.
 
