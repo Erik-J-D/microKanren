@@ -8,19 +8,10 @@
 (define (var? x) (vector? x))
 (define (var=? x1 x2) (= (vector-ref x1 0) (vector-ref x2 0)))
 
-(define (assp proc alist)
-  (let loop ((alist alist))
-    (if (null? alist)
-        #f
-        (let ((p (car alist)))
-          (if (proc (car p))
-              p
-              (loop (cdr alist)))))))
-
 (define (walk u s)
   (let ((pr (and
              (var? u)
-             (assp (lambda (v) (var=? u v)) s))))
+             (assf (lambda (v) (var=? u v)) s))))
     (if pr
         (walk (cdr pr) s)
         u)))

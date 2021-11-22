@@ -5,9 +5,9 @@ This is a fork of the original microKanren code provided by Jason Hemann and Dan
 ## Changes in this fork
 
 - Rename everything to .rkt
-- add `provide` and `require` expressions to sort out imports for Racket
-- add an `assp` definition since the built in one in the lists library didn't quite work
-- `errorf` → `error`
+- Add `provide` and `require` expressions to sort out imports for Racket
+- `assp` → `assf` (same behaviour, different name)
+- `errorf` → `error` (same behaviour, different name)
 
 The tests all pass in Racket v8.2.
 
